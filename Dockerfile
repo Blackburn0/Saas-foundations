@@ -13,14 +13,17 @@ COPY requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Copy project files
-COPY . .
+# Copy Django project (src folder only)
+COPY ./src /app/src
 
-# Collect static files (optional, for prod use)
+# Change into the Django app directory
+WORKDIR /app/src
+
+# Optional: collect static files (uncomment for production)
 # RUN python manage.py collectstatic --noinput
 
 # Expose port
 EXPOSE 8000
 
-# Start the application using Gunicorn
+# Start the Django app using Gunicorn
 CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000"]

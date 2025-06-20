@@ -1,24 +1,26 @@
-# Create project directory
-mkdir -p ~/dev/saas-foundations
-cd ~/dev/saas-foundations
+# Base image
+FROM python:3.12-slim
 
-# macos/linux: Create and activate a virtual environment
-python3 -m venv venv
-source venv/bin/activate
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-# windows: Create and activate a virtual environment
-c:\Python312\python.exe -m venv venv
-.\venv\Scripts\activate
+# Set working directory
+WORKDIR /app
 
-# Create requirements.txt
-echo "Django>=5.0,<5.1" >> requirements.txt
-echo "gunicorn" >> requirements.txt
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
-# install requirements
-pip install pip --upgrade
-pip install -r requirements.txt
+# Copy project files
+COPY . .
 
-# Start the django project
-mkdir -p src
-cd src
-django-admin startproject config .
+# Collect static files (optional, for prod use)
+RUN python manage.py collectstatic --noinput
+
+# Expose port
+EXPOSE 8000
+
+# Start the application using Gunicorn
+CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000"]

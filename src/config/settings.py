@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [".railway.app", "saas-foundations-production-d2b9.up.railway.app"]
 
 if DEBUG:
-    ALLOWED_HOSTS = ["127.0.0.1"]
+    ALLOWED_HOSTS = ["127.0.0.1", ".railway.app", "saas-foundations-production-d2b9.up.railway.app"]
 
 # Application definition
 

@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 #     }
 # }
 
-DATABASE_URL = config("DATABASE_URL", cast=str)
+DATABASE_URL = config("DATABASE_URL", cast=str) 
 CONN_MAX_AGE = config("CONN_MAX_AGE", cast=int, default=30)
 
 if DATABASE_URL is not None:

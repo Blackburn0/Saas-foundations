@@ -101,7 +101,6 @@ if DATABASE_URL is not None:
         )
     }
 
-    DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

@@ -19,11 +19,16 @@ COPY ./src /app/src
 # Change into the Django app directory
 WORKDIR /app/src
 
+# Set environment variable for collectstatic
+# ARG DJANGO_SECRET_KEY
+# ENV DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+
 # Optional: collect static files (uncomment for production)
-RUN python manage.py collectstatic --noinput
+# RUN python manage.py collectstatic --noinput
 
 # Expose port
 EXPOSE 8000
 
 # Start the Django app using Gunicorn
-CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000"]
+# CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["sh", "-c", "python manage.py collectstatic --noinput && gunicorn config.wsgi:application --bind 0.0.0.0:8000"]

@@ -140,15 +140,29 @@ USE_TZ = True
 # STATIC_ROOT = BASE_DIR / "local-cdn"
 
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'vendors'),
-]
-STATIC_ROOT = BASE_DIR / "staticfiles"
 
+
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS =BASE_DIR / 'static/vendors'
+
+# STATIC_ROOT = BASE_DIR / "staticfiles"
+
+
+# STORAGES = {
+#     # ...
+#     "staticfiles": {
+#         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+#     },
+# }
+
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'local-cdn'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'staticfiles',
+]
 
 STORAGES = {
-    # ...
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },

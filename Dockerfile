@@ -20,7 +20,7 @@ COPY ./src /app/src
 WORKDIR /app/src
 
 # Optional: collect static files (uncomment for production)
-# RUN python manage.py collectstatic --noinput
+RUN python manage.py collectstatic --noinput
 
 # Expose port
 EXPOSE 8000

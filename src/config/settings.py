@@ -10,10 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
-from ctypes import cast
-from email.policy import default
 from pathlib import Path
-
+import os
 from decouple import config
 import dj_database_url
 
@@ -51,7 +49,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
-
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -139,18 +136,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+# STATIC_URL = '/static/'
+# STATIC_ROOT = BASE_DIR / "local-cdn"
+
+
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'vendors'),
+]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# STATICFILES_BASE_DIR = BASE_DIR / "staticfiles"
-# STATICFILES_VENDOR_DIR = STATICFILES_BASE_DIR / "vendors"
-
-# STATICFILES_DIRS = [
-#     STATICFILES_BASE_DIR,
-    
-# ]
-
-
-STATIC_ROOT = BASE_DIR / "local-cdn"
 
 STORAGES = {
     # ...
